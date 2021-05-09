@@ -1,0 +1,60 @@
+algoritmo Menu_missao_1;
+// Síntese
+//  Objetivo: ter um menu de opções e realizar opérações com dados informados pelo usuário
+//  Entrada : altura, peso, num1 e num2
+//  Saída   : imc e result_m
+
+
+principal
+	// Declarações
+		inteiro op, volta;
+		real imc, altura, peso, num1, num2, result_m;
+	// Instruções
+	escreval("Menu de opções:");
+	escreval("1 - Receber informações do aluno responsável");
+	escreval("2 - Verificar o seu Indice de Massa Corporal(IMC)");
+	escreval("3 - Efetuar uma multiplicação");
+	escreval("5 - Sair e voltar mais tarde");
+	leia(op);
+	escolha(op)
+		caso 1
+			//informaçoes
+			escreval("Informações do aluno");
+			escreval("Nome: Thyago Henrique Moura dos Anjos");
+			escreval("Matrícula: 202017209");
+			escreval("Semestre: 1º semestre");
+			interrompa;
+		caso 2
+			//IMC
+			escreval("Vamos ver o seu IMC!?!");
+			escreval("Qual o seu peso?");
+			leia(peso);
+			escreval("Qual a sua altura");
+			leia(altura);
+			imc = peso / (altura*altura);
+			escreval("O seu IMC é:");
+			escreval(imc);
+			interrompa;
+		caso 3
+			//multiplicaçao
+			escreval("Vamos fazer uma multiplicação?");
+			escreval("Digite o primeiro número:");
+			leia(num1);
+			escreval("Digite o segundo número:");
+			leia(num2);
+			result_m = num1 * num2;
+			escreval("O resultado é:");
+			escreval(result_m);
+			interrompa;
+		caso 5
+			//sair
+			escreval("Obrigado por utilizar o programa!");
+			escreval("!!Volte mais tarde!!");
+			interrompa;
+		outroCaso
+			//evitar números diferentes
+			escreval("Número digitado indisponivel!");
+			interrompa;
+	fimEscolha
+fimPrincipal
+

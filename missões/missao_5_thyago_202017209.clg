@@ -1,0 +1,389 @@
+algoritmo missao_5;
+// Síntese
+//  Objetivo: Receber e armazenar notas e os nomes de estudantes inseridos pelo usuário em vetores, mostrar um menu ao usuário e executar a ação de acordo com a escolha dele.
+//  Entrada : Notas e nomes registrados pelo usuário.
+//  Saída   : Listagem de notas e nomes, listagem de aprovados, listagem de reprovados,nome pesquisado ou saída do programa.
+
+
+principal
+	// Declarações
+
+	inteiro opcao, i;
+	real notas[10000], nota_do_aluno_pesquisado;
+	texto nomes[10000], nome_pesquisado, aluno_pesquisado;
+	
+	//Inicialização de variáveis
+	i =0;
+	opcao =0;
+	
+	
+	// Instruções
+
+	//Laço de repetição que controla o programa.
+	faca
+	
+		//Chamar o procedimento que mostra o menu ao usuário.
+		menu();
+		
+		//Ler a opção escolhida pelo usuário.
+		leia(opcao);
+
+		//limpar a tela.
+		limpaTela();
+
+		//Escolher dentre as opções a opção que o usuário escolheu.
+		escolha (opcao)
+		
+			//Cadastrar notas e nomes inseridos pelo usuário.
+			caso 1
+				
+				cadastra_notas_nome(notas, nomes ,i);
+				
+				//Adicionar 1 ao contador do vetor.
+				i=i+1;
+				interrompa;
+			
+			//Fazer a listagem de alunos cadastrados até o momento.
+			caso 2
+			
+				listar_notas_nomes(notas, i, nomes);
+				interrompa;
+
+			
+			//Realizar listagem de alunos aprovadas.
+			caso 3
+			
+				listar_aprovados(notas, i, nomes);
+				interrompa;
+				
+			
+			//Realizar listagem de alunos reprovadas.
+			caso 4
+				reprovados(notas, i, nomes);
+				interrompa;
+			
+			
+			//Realizar pesquisa do aluno
+			caso 5
+				aluno_pesquisado = pesquisa_aluno(nomes, notas,i);
+				nota_do_aluno_pesquisado = pesquisa_nota_aluno(nomes, notas,i,aluno_pesquisado);
+				mencao_aluno(aluno_pesquisado, nota_do_aluno_pesquisado);
+				interrompa;
+			
+			
+			//Finalizar o programa.
+			caso 6
+				finalizar_programa();
+				interrompa;
+			
+			//Caso o usuário insira uma opção que nao faz parte do menu.
+			outroCaso
+			escreval("Opção não encontrada. Digite uma opção válida!");
+			interrompa;
+			
+		fimEscolha
+		
+	enquanto(opcao != 6);
+
+fimPrincipal
+
+//Funções que retornam valores.
+
+//função para cadastro de alunos e notas.
+funcao real cadastra_notas_nome(real notas[], texto nomes[] ,inteiro i)
+	// Declarações
+	
+	// Instruções
+	escreval("....................CADASTRAR NOME....................");
+	leia(nomes[i]);
+	valida_nomes(nomes, i);
+	escreval("....................NOME CADASTRADO!..................");
+	escreval("");
+	escreval("....................CADASTRAR NOTA....................");
+	escreval("Digite a nota que será cadastrada: ");
+	leia(notas[i]);
+	escreval("....................NOTA CADASTRADA!..................");
+	escreval("");
+	valida_notas(notas, i);
+
+	//retorna os valores cadastrados pelo usuário para a função principal.
+	retorna notas[i];
+	retorna nomes[i];
+	
+fimFuncao
+
+//função para validação da nota.
+funcao real valida_notas(real notas[], inteiro i)
+	// Declarações
+	
+	// Instruções
+	enquanto (notas[i]<0 ou notas[i]>10) faca
+		limpaTela();
+		escreval("Nota " + notas[i] + " inválida!! Digite uma nota entre 0 e 10!!");
+		escreval("");
+		escreval("");
+		escreval("....................CADASTRAR NOTA....................");
+		escreval("Digite a nota que será cadastrada: ");
+		leia(notas[i]);
+		escreval("....................NOTA CADASTRADA!..................");
+		escreval("");
+		escreval("");
+	fimEnquanto
+	
+	//retorna o valor para a função de cadastro de usuários.
+	retorna notas[i];
+fimFuncao
+
+//função para validação do nome.
+funcao texto valida_nomes(texto nomes[],inteiro i)
+
+	// Declarações
+	inteiro num_caracteres;
+	
+	// Instruções
+	num_caracteres = tamanhoTexto(nomes[i]);
+	
+	faca
+	
+		se(num_caracteres < 3)entao
+			escreval("Nome inválido!! Digite um nome com mais de 3 caracteres");
+			leia(nomes[i]);
+			num_caracteres = tamanhoTexto(nomes[i]);
+		fimSe
+		
+	enquanto(num_caracteres < 3);
+	
+	//retorna o valor para a função de cadastro de usuários.
+	retorna nomes[i];
+	
+fimFuncao
+
+//Pesquisar o nome do aluno.
+funcao texto pesquisa_aluno(texto nomes[],real notas[], inteiro i)
+	// Declarações
+	texto pesquisa;
+	inteiro contador;
+
+	// Instruções
+	escreval("↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝ PESQUISAR ALUNO ↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝");
+	escreval("Digite o nome do aluno que deseja pesquisar:");
+	leia(pesquisa);
+
+	para(contador de 0 ate i-1 passo 1) faca
+		se(comparaTexto(pesquisa, nomes[contador]) == 0) entao
+			escreval("");
+			escreval("↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝ ALUNO ENCONTRADO! ↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝");
+
+			retorna nomes[contador];
+		fimSe
+	fimPara
+
+	retorna "Aluno não encontrado";
+fimFuncao
+
+//Pesquisar a nota do aluno pesquisado.
+funcao real pesquisa_nota_aluno(texto nomes[],real notas[], inteiro i, texto aluno_pesquisado)
+	// Declarações
+	texto pesquisa;
+	inteiro contador;
+	
+	// Instruções
+	
+	para(contador de 0 ate i-1 passo 1) faca
+		se(comparaTexto(aluno_pesquisado, nomes[contador]) == 0) entao
+			retorna notas[contador];
+		fimSe
+	fimPara
+
+	retorna -1;
+fimFuncao
+
+
+//Procedimentos que mostram algo ao usuário.
+
+//Mostrar menu de opções ao usuário.
+procedimento menu()
+	// Declarações
+	
+	// Instruções
+	escreval("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨MENU¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+	escreval("1 - Cadastrar Estudantes");
+	escreval("2 - Listar Estudantes");
+	escreval("3 - Listar Aprovados");
+	escreval("4 - Listar Reprovados");
+	escreval("5 - Pesquisar Estudante");
+	escreval("6 - Finalizar Programa");
+	escreval("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+fimProcedimento 
+
+//Listar as notas e nomes dos alunos cadastrados.
+procedimento listar_notas_nomes(real notas[], inteiro i, texto nomes[])
+
+	// Declarações
+	inteiro contador_listagem_todos;
+	
+	// Instruções
+	escreval("------------ LISTA DE USUARIOS -----------------");
+	
+	para(contador_listagem_todos de 0 ate i-1 passo 1) faca
+	
+		se(notas[contador_listagem_todos]>=5)entao
+			escreval(nomes[contador_listagem_todos]+" - " + notas[contador_listagem_todos]+" - "+"APROVADO");
+		senao
+			escreval(nomes[contador_listagem_todos]+" - " + notas[contador_listagem_todos]+" - "+"REPROVADO");
+		fimSe
+		
+	fimPara
+	
+	escreval("------------------------------------------------");
+	escreval("");
+fimProcedimento
+
+//Listagem de alunos aprovados.
+procedimento listar_aprovados(real notas[], inteiro i, texto nomes[])
+
+	// Declarações
+	inteiro contador, contador_aprovados;
+	contador_aprovados =0;
+	
+	// Instruções
+	escreval("------------ LISTA DE APROVADOS-----------------");
+	para(contador de 0 ate i-1 passo 1) faca
+	
+		se(notas[contador]>=5)entao
+			contador_aprovados = contador_aprovados + 1;
+		fimSe
+		
+	fimPara
+	
+	escreval("Quantidade de aprovados: "+ contador_aprovados);
+	escreval("");
+	
+	para(contador de 0 ate i-1 passo 1) faca
+	
+		se(notas[contador]>=5)entao
+			escreval(nomes[contador]+" - " + notas[contador]);
+		fimSe
+		
+	fimPara
+	escreval("------------------------------------------------");
+	escreval("");
+	
+fimProcedimento
+
+//Listagem de alunos reprovados.
+procedimento reprovados(real notas[], inteiro i, texto nomes[])
+	// Declarações
+	inteiro contador, contador_reprovados;
+	
+	contador_reprovados =0;
+	// Instruções
+	escreval("------------ LISTA DE REPROVADOS -----------------");
+	
+	
+	para(contador de 0 ate i-1 passo 1) faca
+
+		se(notas[contador]<5)entao
+			contador_reprovados = contador_reprovados +1;
+		fimSe
+		
+	fimPara
+	escreval("Quantidade de reprovados: "+ contador_reprovados);
+	escreval("");
+	
+	para(contador de 0 ate i-1 passo 1) faca
+
+		se(notas[contador]<5)entao
+			escreval(nomes[contador] + " - " + notas[contador] + " - " + (5 - notas[contador]));
+		fimSe
+		
+	fimPara
+	
+	escreval("--------------------------------------------------");
+	escreval("");
+fimProcedimento
+
+//Mostar a menção final do aluno.
+procedimento mencao_aluno(texto aluno_pesquisado,real nota_do_aluno_pesquisado)
+	// Declarações
+	
+	// Instruções
+	se(nota_do_aluno_pesquisado == -1)entao
+		escreval("");
+		escreval("↝↝↝↝↝↝↝↝↝↝↝↝↝↝ Aluno não encontrado! ↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝↝");
+		escreval("");
+	fimSe
+		
+	se(nota_do_aluno_pesquisado == 0)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - SR");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+	
+	se(nota_do_aluno_pesquisado >= 1 e nota_do_aluno_pesquisado <= 2.9)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - II");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+	
+	se(nota_do_aluno_pesquisado >= 3 e nota_do_aluno_pesquisado <= 4.9)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - MI");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+	
+	se(nota_do_aluno_pesquisado >= 5 e nota_do_aluno_pesquisado <= 6.9)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - MM");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+	
+	se(nota_do_aluno_pesquisado >= 7 e nota_do_aluno_pesquisado <= 8.9)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - MS");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+	
+	se(nota_do_aluno_pesquisado >= 9 e nota_do_aluno_pesquisado <= 10)entao
+		escreval("");
+		escreval("MENÇÃO FINAL: ");
+		escreval("--------------------------------------------------");
+		escreval(aluno_pesquisado+ " - " +nota_do_aluno_pesquisado + " - SS");
+		escreval("--------------------------------------------------");
+		escreval("");
+	fimSe
+fimProcedimento
+
+//Finalizar programa.
+procedimento finalizar_programa()
+	// Declarações
+	
+	// Instruções
+	escreval("*********************************************");
+	escreval("");
+	escreval("Finalizando Programa. Obrigado por utilizar!!");
+	escreval("");
+	escreval("*********************************************");
+
+fimProcedimento
+
+
+
+
+
+

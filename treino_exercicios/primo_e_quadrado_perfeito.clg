@@ -1,0 +1,79 @@
+algoritmo semNome;
+// Síntese
+//  Objetivo:  Descobrir se um número é primo ou quadrado perfeito.. 
+//  Entrada : número inteiro
+//  Saída   : É primo ou é Quadrado perfeito
+
+
+principal
+	// Declarações
+	inteiro numero;
+	// Instruções
+	escreval("Digite um numero:");
+	leia(numero);
+	numero = valida_numero(numero);
+	imprime_resultado(numero);
+fimPrincipal
+
+procedimento imprime_resultado(inteiro numero)
+	se(eh_quadrado_perfeito(numero)) entao
+		escreval("É um quadrado perfeito!!!!!");
+	senao
+		escreval("Não é quadrado perfeito!!!");
+	fimSe
+
+	se(eh_primo(numero)) entao
+		escreval("É primo!!!!");
+	senao
+		escreval("Não é primo!!!");
+	fimSe
+
+fimProcedimento
+
+funcao logico eh_quadrado_perfeito(inteiro numero)
+	inteiro i;
+	para(i de 1 ate numero passo 1) faca
+		se(i*i == numero) entao
+			escreval("O numero inserido é o quadrado perfeito de " + i);
+			// Achei um número que ele ao quadrado é igual ao número inserido pelo usuário
+			retorna verdadeiro;
+		fimSe
+	fimPara
+	
+	retorna falso;
+fimFuncao
+
+funcao logico eh_primo(inteiro numero)
+	inteiro i;
+	se(numero == 1) entao
+		retorna verdadeiro;
+	fimSe
+	
+	para(i de 2 ate numero-1 passo 1) faca
+		se(numero % i == 0)  entao
+			retorna falso;
+		fimSe
+	fimPara
+	retorna verdadeiro;
+fimFuncao
+
+
+funcao inteiro valida_numero(inteiro numero)
+	enquanto(numero <= 0) faca
+		escreval("Erro!!! Digite um numero maior que zero:");
+		leia(numero);
+	fimEnquanto
+
+	retorna numero;
+fimFuncao
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,304 @@
+algoritmo missao_4;
+// Síntese
+//  Objetivo: Receber e armazenar notas inseridas pelo usuário em um vetor, mostrar um menu ao usuário e executar a ação de acordo com a escolha dele.
+//  Entrada : Notas registradas pelo usuário.
+//  Saída   : Listagem de notas, listagem de aprovados, listagem de reprovados, listagem de notas maiores que a média geral ou saída do programa.
+
+
+principal
+	// Declarações
+
+	inteiro opcao, i;
+	real notas[10000], media, soma;
+	
+	//Inicialização de variáveis
+	i =0;
+	opcao =0;
+	media =0;
+	soma=0;
+	
+	// Instruções
+	
+	//Laço de repetição que controla o programa.
+	faca
+	
+		//Chamar o procedimento que mostra o menu ao usuário.
+		menu();
+		
+		//Ler a opção escolhida pelo usuário.
+		leia(opcao);
+
+		//limpar a tela.
+		limpaTela();
+
+		//Escolher dentre as opções a opção que o usuário escolheu.
+		escolha (opcao)
+		
+			//Cadastrar notas inseridas pelo usuário.
+			caso 1
+				cadastra_notas(notas, i);
+				
+				//Validar as notas inseridas
+				valida_notas(notas, i);
+				
+				//Armazenar a soma das notas.
+				soma = soma +notas[i];
+				
+				//Adicionar 1 ao contador do vetor.
+				i = i+1;
+				interrompa;
+			
+			//Fazer a listagem de notas cadastradas até o momento.
+			caso 2
+			listar_notas(notas, i, soma);
+			interrompa;
+
+			//Realizar a média entre as notas cadastradas.
+			caso 3
+			media = funcao_media(notas, i, media, soma);
+			media_notas_cadastradas(media);
+	
+			interrompa;
+
+			//Realizar listagem de notas aprovadas.
+			caso 4
+			aprovados(notas,i, soma);
+			interrompa;
+
+			//Realizar listagem de notas reprovadas.
+			caso 5
+			reprovados(notas, i, soma);
+			interrompa;
+
+			//Realizar listagem de notas maiores que a média.
+			caso 6
+			maiores_que_media(notas, i, media, soma);
+			interrompa;
+
+			//Finalizar o programa.
+			caso 7
+			finalizar_programa();
+			interrompa;
+
+			//Caso o usuário insira uma opção que nao faz parte do menu.
+			outroCaso
+			escreval("Opção não encontrada. Digite uma opção válida!");
+			interrompa;
+		fimEscolha
+		
+	enquanto(opcao != 7);
+
+fimPrincipal
+
+
+//Mostrar menu ao usuário.
+procedimento menu()
+	// Declarações
+	
+	// Instruções
+	escreval("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨MENU¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+	escreval("1 - Cadastrar Nota");
+	escreval("2 - Listar Notas");
+	escreval("3 - Imprimir média");
+	escreval("4 - Listar Aprovados");
+	escreval("5 - Listar Reprovados");
+	escreval("6 - Listar notas maiores que a Média geral da turma");
+	escreval("7 - Sair");
+	escreval("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨");
+	
+fimProcedimento
+
+//Cadastramento da nota inserida.
+funcao real cadastra_notas(real notas[], inteiro i)
+	escreval("....................CADASTRAR NOTA....................");
+	escreval("Digite a nota que será cadastrada: ");
+	leia(notas[i]);
+	escreval("....................NOTA CADASTRADA!..................");
+	escreval("");
+	escreval("");
+	retorna notas[i];
+fimFuncao
+
+//Validação da nota inserida.
+funcao real valida_notas(real notas[], inteiro i)
+	enquanto (notas[i]<0 ou notas[i]>10) faca
+		limpaTela();
+		escreval("Nota " + notas[i] + " inválida!! Digite uma nota entre 0 e 10!!");
+		escreval("");
+		escreval("");
+		escreval("....................CADASTRAR NOTA....................");
+		escreval("Digite a nota que será cadastrada: ");
+		leia(notas[i]);
+		escreval("....................NOTA CADASTRADA!..................");
+		escreval("");
+		escreval("");
+	fimEnquanto
+	retorna notas[i];
+fimFuncao
+
+//Fazer o procedimento e assim listar as notas
+procedimento listar_notas(real notas[], inteiro i, real soma)
+
+	// Declarações
+	inteiro contador;
+	
+	// Instruções
+	escreval("--------------------- LISTAGEM DE NOTAS CADASTRADAS ---------------------");
+	se (soma==0) entao
+		escreval("");
+		escreval("Não existem notas cadastradas ainda!");
+		escreval("");
+	senao	
+		para(contador de 0 ate i-1 passo 1) faca
+			escreval(notas[contador]);
+		fimPara
+		escreval("-------------------------------------------------------------------------");
+		escreval("");
+		escreval("");
+	fimSe
+	
+fimProcedimento
+
+//Apresentaçao da média ao usuário.
+procedimento media_notas_cadastradas(real media)
+	escreval("______________________MEDIA DAS NOTAS CADASTRADAS______________________");
+	escreval("");
+	escreval(" " + media);
+	escreval("_______________________________________________________________________");
+	escreval("");
+	escreval("");
+fimProcedimento
+
+//Fazer o calculo da média.
+funcao real funcao_media(real notas[],inteiro i, real media, real soma)
+	// Declarações
+	
+	// Instruções
+
+	se (soma == 0) entao
+		escreval("");
+		escreval("Não existem notas cadastradas ainda!");
+		escreval("");
+	senao
+		media = soma/i;
+		retorna media;
+	fimSe
+	retorna 0;
+	
+fimFuncao
+
+//Realizar o processo antes de listar as notas dos aprovados.
+procedimento aprovados(real notas[],inteiro i, real soma)
+
+	// Declarações
+	inteiro contador_aprovados;
+	
+	// Instruções
+	escreval("--------------------- LISTAGEM DE NOTAS APROVADAS ---------------------");
+	se (soma==0) entao
+		escreval("");
+		escreval("Não existem notas cadastradas ainda!");
+		escreval("");
+	senao
+		para(contador_aprovados de 0 ate i-1 passo 1) faca
+			//Condicionar para listar apenas notas maiores que 5.
+			se (notas[contador_aprovados] >=5  )entao
+				escreval(notas[contador_aprovados]);
+			fimSe
+		fimPara 
+	escreval("-------------------------------------------------------------------------");
+	escreval("");
+	escreval("");
+	fimSe
+fimProcedimento
+
+////Realizar o processo antes de listar as notas dos reprovados.
+procedimento reprovados(real notas[],inteiro i, real soma)
+
+	// Declarações
+	inteiro contador_reprovados;
+	
+	// Instruções
+	escreval("--------------------- LISTAGEM DE NOTAS REPROVADAS ---------------------");
+	se (soma==0) entao
+		escreval("");
+		escreval("Não existem notas cadastradas ainda!");
+		escreval("");
+	senao
+		para(contador_reprovados de 0 ate i-1 passo 1) faca
+			//Condicionar para listar apenas notas menores que 5.
+			se (notas[contador_reprovados] < 5) entao
+				escreval(notas[contador_reprovados]);
+			fimSe
+			
+		fimPara
+		escreval("-------------------------------------------------------------------------");
+		escreval("");
+		escreval("");
+	fimSe
+	
+fimProcedimento
+
+//Realizar o processo antes de listas as notas maiores que a média.
+procedimento maiores_que_media(real notas[],inteiro i,real media, real soma)
+
+	// Declarações
+	inteiro contador_maiores_que_media;
+	
+	// Instruções
+	escreval("------------------ LISTAGEM DE NOTAS MAIORES QUE A MÈDIA ---------------");
+	se (soma==0) entao
+		escreval("");
+		escreval("Não existem notas cadastradas ainda!");
+		escreval("");
+	senao
+		para(contador_maiores_que_media de 0 ate i-1 passo 1) faca
+			//Condicionar para listar apenas notas maiores que a média.
+			se (notas[contador_maiores_que_media] > media) entao
+				escreval(notas[contador_maiores_que_media]);
+			fimSe
+			
+		fimPara
+		escreval("-------------------------------------------------------------------------");
+		escreval("");
+		escreval("");
+	fimSe
+	
+fimProcedimento
+
+//Mostrar mensagem de saída ao usuário
+procedimento finalizar_programa()
+	// Declarações
+	
+	// Instruções
+	escreval("*********************************************");
+	escreval("");
+	escreval("Finalizando Programa. Obrigado por utilizar!!");
+	escreval("");
+	escreval("*********************************************");
+
+fimProcedimento
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

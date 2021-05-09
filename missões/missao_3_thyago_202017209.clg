@@ -1,0 +1,236 @@
+algoritmo Missao_3;
+// Síntese
+//  Objetivo: Programa para registro das notas finais de todos os alunos com funçoes.
+//  Entrada : Notas de todos os alunos.
+//  Saída   : Total de alunos, alunos aprovados, alunos reprovados, maior nota, menor nota ou finalizar programa.
+
+
+principal
+	// Declarações
+		inteiro i, op,  aux, total_alunos, qtd_aprovado, qtd_reprovados;
+		real nota, maior_nota, menor_nota;
+
+	//Inicialização de variáveis
+		i =0;
+		op =0;
+		aux =0;
+		total_alunos =0;
+		qtd_aprovado =0;
+		qtd_reprovados =0;
+		maior_nota =0;
+		menor_nota =0;
+
+	// Instruções
+	faca
+		//Receber as notas digitadas.
+		escreval("Digite a "+ (i+1) +" nota:");
+		leia(nota);
+
+		//Armazenar a maior e a menor nota.
+		maior_nota = fun_maior_nota( i, nota, maior_nota);
+		menor_nota = fun_menor_nota( i, nota, maior_nota, menor_nota);
+		
+		//Armazenar quantidade total de alunos.
+		total_alunos = fun_total_alunos(i, total_alunos);
+
+		//Armazenar a quantidade de alunos aprovados e reprovados.
+		qtd_aprovado = fun_qtd_aprovado(nota, qtd_aprovado);
+		qtd_reprovados = fun_qtd_reprovado(nota, qtd_reprovados);
+		
+		//somar um ao contador
+		i = i + 1;
+	enquanto(nota >= 0);
+	limpaTela();
+	//Organizar o menu disponível ao usuário.
+	faca
+		//inicializar variavel dentro do laço
+			op = 0;
+		
+		//menu
+			menu();
+			leia(op);
+			escreval("");
+			limpaTela();
+		
+		//Realizar a opção que o usuário escolheu.
+		escolha(op)
+		caso 1
+		//Total de alunos.
+			mostra_aluno(total_alunos);
+			interrompa;
+		caso 2
+		//Quantidade de alunos aprovados.
+			mostra_qtd_aprovados(qtd_aprovado);
+			interrompa;
+		caso 3
+		//Quantidade de alunos reprovados.
+			mostra_qtd_reprovados(qtd_reprovados);
+			interrompa;
+		caso 4
+		//Maior nota registrada.
+			mostra_maior_nota(maior_nota);
+			interrompa;
+		caso 5
+		//Menor nota registrada.
+			mostra_menor_nota(menor_nota);
+			interrompa;
+		caso 6
+		//Finalizar programa.
+			mostra_saida();
+			interrompa;
+		outroCaso
+		//Caso o número digitado não esteja no menu.
+			escreval("Esta opção nao existe!Tente outra opção!");
+			escreval("");
+			interrompa;
+		fimEscolha
+	enquanto(op != 6);
+fimPrincipal
+
+//Fazer o procedimento de seleçao de maior nota.
+funcao real fun_maior_nota(inteiro i, real nota, real maior_nota)
+	// Declarações
+
+	// Instruções
+	se(i==0)entao
+		maior_nota = nota;
+	senao
+		se(nota < 0) entao
+			interrompa;
+		fimSe
+		se(nota > maior_nota)entao
+			maior_nota = nota;
+		fimSe
+	fimSe
+	
+	//retornar valor a função principal.
+	retorna maior_nota;
+fimFuncao
+
+//Fazer o procedimento de seleçao de menor nota.
+funcao real fun_menor_nota(inteiro i, real nota, real maior_nota, real menor_nota)
+	// Declarações
+
+	// Instruções
+	se(i==0)entao
+		menor_nota = nota;
+	senao
+		se(nota < 0) entao
+			interrompa;
+		fimSe
+		se(nota > maior_nota)entao
+			maior_nota = nota;
+		senao
+			se(nota < menor_nota)entao
+				menor_nota = nota;
+			fimSe
+		fimSe
+	fimSe
+	
+	//retornar valor a função principal.
+	retorna menor_nota;
+fimFuncao
+
+//fazer o calculo do número total de alunos.
+funcao inteiro fun_total_alunos(inteiro i, inteiro total_alunos)
+	// Declarações
+
+	// Instruções
+	total_alunos = total_alunos + 1;
+	
+	//retornar valor a função principal.
+	retorna total_alunos;
+fimFuncao
+
+//fazer a seleção da quantidade de aprovados.
+funcao inteiro fun_qtd_aprovado(real nota, inteiro qtd_aprovado)
+	// Declarações
+
+	// Instruções
+	se(nota >= 5)entao
+		qtd_aprovado = qtd_aprovado + 1;
+	fimSe
+	
+	//retornar valor a função principal.
+	retorna qtd_aprovado;
+fimFuncao
+//fazer a seleção da quantidade de reprovados.
+funcao inteiro fun_qtd_reprovado(real nota, inteiro qtd_reprovados)
+	// Declarações
+
+	// Instruções
+	se(nota < 5)entao
+		qtd_reprovados = qtd_reprovados + 1;
+	fimSe
+
+	//retornar valor a função principal.
+	retorna qtd_reprovados;
+fimFuncao
+
+//mostrar um menu de opções ao usuário
+procedimento menu()
+	escreval("");
+	escreval("Menu de escolha:");
+	escreval("1 - Total de Alunos");
+	escreval("2 - Quantidade de Aprovados");
+	escreval("3 - Quantidade de Reprovados");
+	escreval("4 - Maior nota");
+	escreval("5 - Menor nota");
+	escreval("6 - Sair");
+fimProcedimento
+
+//mostrar mensagem da quantidade de alunos registados ao usuário.
+procedimento mostra_aluno(inteiro total_alunos)
+	// Declarações
+
+	// Instruções
+	escreval("Total de Alunos registrados: " + (total_alunos));
+	
+fimProcedimento
+
+//mostrar mensagem da quantidade de aprovados registrados ao usuário.
+procedimento mostra_qtd_aprovados(inteiro qtd_aprovado)
+	// Declarações
+
+	// Instruções
+	escreval("Quantidade de alunos registrados APROVADOS: " + qtd_aprovado);
+	
+fimProcedimento
+
+//mostrar mensagem da quantidade de reprovados registrados ao usuário.
+procedimento mostra_qtd_reprovados(inteiro qtd_reprovados)
+	// Declarações
+
+	// Instruções
+	escreval("Quantidade de alunos registrados REPROVADOS: " + (qtd_reprovados));
+	
+fimProcedimento
+
+//mostrar mensagem com a maior nota registrada ao usuário.
+procedimento mostra_maior_nota(real maior_nota)
+	// Declarações
+
+	// Instruções
+	escreval(" A MAIOR nota registrada é: " + maior_nota);
+	
+fimProcedimento
+
+//mostrar mensagem com a menor nota registrada ao usuário.
+procedimento mostra_menor_nota(real menor_nota)
+	// Declarações
+
+	// Instruções
+	escreval("A MENOR nota registrada é: " + menor_nota);
+	
+fimProcedimento
+
+//mostrar mensagem de saída ao usuário.
+procedimento mostra_saida()
+	// Declarações
+
+	// Instruções
+	escreval("");
+	escreval("Obrigado por utilizar o programa!Finalizando...");
+	escreval("");
+	
+fimProcedimento

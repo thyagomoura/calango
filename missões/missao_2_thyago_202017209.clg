@@ -1,0 +1,115 @@
+algoritmo Missao_2;
+// Síntese
+//  Objetivo: Programa para registro das notas finais de todos os alunos. 
+//  Entrada : Notas de todos os alunos.
+//  Saída   : Total de alunos, alunos aprovados, alunos reprovados, maior nota, menor nota ou finalizar programa.
+
+
+principal
+	// Declarações
+		inteiro i, op,  aux, total_alunos, qtd_aprovado, qtd_reprovados;
+		real nota, maior_nota, menor_nota;
+		
+	//Inicialização de variáveis
+		i = 0;
+		op = 0;
+		aux = 0;
+		total_alunos =0;
+		qtd_aprovado =0;
+		qtd_reprovados =0;
+	
+	// Instruções
+	
+	faca
+		//Receber as notas digitadas.
+		escreval("Digite a "+ (i+1) +" nota:");
+		leia(nota);
+		
+		//Armazenar a maior e a menor nota.
+		se(i==0)entao
+			maior_nota = nota;
+			menor_nota = nota;
+		senao
+			se(nota < 0) entao
+				interrompa;
+			fimSe
+			se(nota > maior_nota)entao
+				maior_nota = nota;
+			senao
+				se(nota < menor_nota)entao
+					menor_nota = nota;
+				fimSe
+			fimSe
+		fimSe
+		
+		//Armazenar quantidade total de alunos.
+		total_alunos = total_alunos + 1;
+		
+		//Armazenar a quantidade de alunos aprovados e reprovados.
+		se(nota >= 5)entao
+			qtd_aprovado = qtd_aprovado + 1;
+		senao
+			qtd_reprovados = qtd_reprovados + 1;
+		fimSe
+		i = i + 1;
+	enquanto(nota >= 0);
+
+	//Organizar o menu disponível ao usuário.
+	faca
+		op = 0;
+		escreval("");
+		escreval("Menu de escolha:");
+		escreval("1 - Total de Alunos");
+		escreval("2 - Quantidade de Aprovados");
+		escreval("3 - Quantidade de Reprovados");
+		escreval("4 - Maior nota");
+		escreval("5 - Menor nota");
+		escreval("6 - Sair");
+		leia(op);
+		escreval("");
+		
+		//Realizar a opção que o usuário escolheu.
+		escolha(op)
+		caso 1
+		//Total de alunos menos um que é do número negativo utilizado como auxiliar de parada do programa.
+			escreval("Total de Alunos registrados: " + (total_alunos));
+			interrompa;
+			
+		caso 2
+		//Quantidade de alunos aprovados.
+			escreval("Quantidade de alunos registrados APROVADOS: " + qtd_aprovado);
+			interrompa;
+			
+		caso 3
+		//Quantidade de alunos reprovados menos um que é do número negativo utilizado como auxiliar de parada do programa.
+			escreval("Quantidade de alunos registrados REPROVADOS: " + (qtd_reprovados));
+			interrompa;
+			
+		caso 4
+		//Maior nota registrada.
+			escreval(" A MAIOR nota registrada é: " + maior_nota);
+			interrompa;
+			
+		caso 5
+		//Menor nota registrada.
+			escreval("A MENOR nota registrada é: " + menor_nota);
+			interrompa;
+			
+		caso 6
+		//Finalizar programa,
+			escreval("");
+			escreval("Obrigado por utilizar o programa!Finalizando...");
+			escreval("");
+			interrompa;
+			
+		outroCaso
+		//Caso o número digitado não esteja no menu.
+			escreval("Esta opção nao existe!Tente outra opção!");
+			escreval("");
+			interrompa;
+		fimEscolha
+		
+	enquanto(op != 6);
+	
+//fim do programa.
+fimPrincipal

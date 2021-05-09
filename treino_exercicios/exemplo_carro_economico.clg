@@ -1,0 +1,62 @@
+algoritmo semNome;
+// Síntese
+//  Objetivo:  
+//  Entrada :
+//  Saída   :
+
+
+principal
+	// Declarações
+	real km, litros, resultado;
+	// Instruções
+	escreval("Digite quantos KM:");
+	leia(km);
+	km = valida_numero(km);
+	escreval("Digite quantos Litros:");
+	leia(litros);
+	litros = valida_numero(litros);
+
+	resultado = calcula_economia(km, litros);
+	
+	imprime_resultado(resultado);
+fimPrincipal
+
+procedimento imprime_resultado(real resultado)
+	limpaTela();
+	escreval("----------------------------------------");
+	se(resultado < 8) entao
+		escreval("Venda o carro!!");
+	senao
+		se(resultado < 12) entao
+			escreval("Economico!!");
+		senao
+			escreval("Super Economico!!!");
+		fimSe
+	fimSe
+	escreval("----------------------------------------");
+fimProcedimento
+
+funcao real calcula_economia(real km, real litros)
+	real resultado;
+	resultado = km/litros;
+
+	retorna resultado;
+	
+fimFuncao
+
+funcao real valida_numero(real numero)
+	enquanto(numero <= 0) faca
+		escreval("Erro!! Digite um numero maior que zero!!!");
+		leia(numero);
+	fimEnquanto
+	retorna numero;
+fimFuncao
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+algoritmo semNome;
+// Síntese
+//  Objetivo:  
+//  Entrada :
+//  Saída   :
+
+
+principal
+	// Declarações
+	faz_tudo();
+	
+fimPrincipal
+
+procedimento faz_tudo()
+	texto frase;
+	inteiro quantidade_vogais, quantidade_letra;
+	caracter letra;
+
+	// Instruções
+	escreval("Digite qualquer coisa:");
+	leia(frase);
+	quantidade_vogais = conta_vogais(frase);
+
+	escreval("Foram encontradas " + quantidade_vogais + " vogais");
+	escreval("Digite uma letra a ser pesquisada:");
+	leiaCaracter(letra);
+	quantidade_letra = pesquisa_letra(frase, letra);
+	escreval("Foram encontradas " +  quantidade_letra + " letras " + letra);
+fimProcedimento
+
+funcao inteiro conta_vogais(texto qualquer) // Nome ruim!! só pra representar que podemos usar qualquer nome
+	inteiro i, quantidade;
+	quantidade = 0;
+	
+	para(i de 0 ate tamanhoTexto(qualquer)-1 passo 1) faca
+		se(caracterTexto(qualquer, i) == 'a' ou caracterTexto(qualquer, i) == 'e' ou caracterTexto(qualquer, i) == 'i' ou caracterTexto(qualquer, i) == 'o' ou caracterTexto(qualquer, i) == 'u') entao
+			quantidade = quantidade + 1;
+		fimSe
+	fimPara
+
+	retorna quantidade;
+fimFuncao
+
+funcao inteiro pesquisa_letra(texto frase, caracter letra)
+	inteiro i, quantidade;
+	quantidade = 0;
+	
+	para(i de 0 ate tamanhoTexto(frase)-1 passo 1) faca
+		se(caracterTexto(frase, i) == letra) entao
+			quantidade = quantidade + 1;
+		fimSe
+	fimPara
+
+	retorna quantidade;
+fimFuncao
+
+
+
+
+
+
+
+
+
